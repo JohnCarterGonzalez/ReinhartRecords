@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Analytics</title>
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/z0Ic4zpaq+0D4U2z+4f2CTQ5Y/Il0J0F3J2JhD" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+
+      <!-- Chart Column -->
+      <div class="column">
+        <canvas id="paymentsChart"></canvas>
+      </div>
+
+      <!-- Form Column -->
+      <div class="column" x-data="paymentFilter()">
+        <div class="box">
+          <form>
+            <div class="field">
+              <label class="label">Per Project</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select x-model="selectedProject">
+                    <option value="">Select Project</option>
+                    <!-- Project options should be dynamically loaded -->
+                    <option value="project1">Project 1</option>
+                    <option value="project2">Project 2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Time</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select x-model="selectedTime">
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Cloud Provider</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select x-model="selectedProvider">
+                    <option value="">Select Provider</option>
+                    <!-- Provider options should be dynamically loaded -->
+                    <option value="aws">AWS</option>
+                    <option value="render">Render</option>
+                    <option value="azure">Azure</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button type="button" class="button is-primary" @click="updateChart">
+                  Update Chart
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Initialize Chart.js and Alpine.js -->
+<script>
+  function paymentFilter() {
+    return {
+      selectedProject: '',
+      selectedTime: 'monthly',
+      selectedProvider: '',
+      updateChart() {
+        // Here you would update the chart based on the selected values
+        // For now, we'll just log the current state to the console
+        console.log(`Project: ${this.selectedProject}, Time: ${this.selectedTime}, Provider: ${this.selectedProvider}`);
+
+        // You would typically make an API call here to get the new data and then update the chart
+      }
+    };
+  }
+
+  // Chart.js initialization
+  var ctx = document.getElementById('paymentsChart').getContext('2d');
+  var paymentsChart = new Chart(ctx, {
+      type: 'line', // You can change the type of chart here: line, bar, etc.
+      data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], // Sample labels, you need to update them dynamically based on the selected time frame
+          datasets: [{
+              label: 'Payments',
+              data: [12, 19, 3, 5], // Sample data, you need to update them dynamically based on the actual payments data
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
+
+</body>
+</html>

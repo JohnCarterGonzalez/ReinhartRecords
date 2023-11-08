@@ -1,0 +1,41 @@
+<section class="hero is-info welcome is-small">
+    <div class="hero-body">
+        <div class="container">
+            {% if user.is_authenticated %}
+                <h1 class="title">
+                   Hello, {{ user.username }}
+                </h1>
+            {% else %}
+                <h1 class="title">
+                    Hello, Guest
+                </h1>
+            {% endif %}
+            <h2 class="subtitle">
+                Hows things?
+            </h2>
+        </div>
+    </div>
+</section>
+<!-- TODO: implement CMS specific metrics: Errors, Website Visits, Number of Deployed Projects -->
+<section class="info-tiles">
+    <div class="tile is-ancestor has-text-centered">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">{{ project.errors }}</p>
+                <p class="subtitle">Errors</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">{{ site.hits }</p>
+                <p class="subtitle">Website Hits</p>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">2</p>
+                <p class="subtitle"> Deployed Projects</p>
+            </article>
+        </div>
+    </div>
+</section>
